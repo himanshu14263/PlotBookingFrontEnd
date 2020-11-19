@@ -1,4 +1,16 @@
-<!-- NG-ZORRO -->
-<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
-  <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
-</a>
+<nz-divider nzOrientation="left" nzText="Plot Sites"></nz-divider>
+<div *ngFor="let row of rows">
+  <div nz-row [nzGutter]="16">
+    <div *ngFor="let plot of row.sites" nz-col class="gutter-row" [nzSpan]="4">
+      <div class="inner-box" (click)="showModal(plot.id+1)">Plot Number - {{plot.id+1}}</div>
+    </div>
+  </div>
+  <div *ngIf="row.id % 2 === 0" class="road"></div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <p>Content one</p>
+  <p>Content two</p>
+  <p>Content three</p>
+  <p>Content three</p>
+</nz-modal>
