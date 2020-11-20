@@ -1,0 +1,57 @@
+<nz-divider nzOrientation="left" nzText="Plot Sites"></nz-divider>
+<div *ngFor="let row of rows">
+  <div nz-row [nzGutter]="16">
+    <div *ngFor="let plot of row.sites" nz-col class="gutter-row" [nzSpan]="4">
+      <div [ngClass]="sites[plot.id+1]===false?'siteNotBooked':'siteBooked'" (click)="showModal(plot.id+1)">Plot Number - {{plot.id+1}}</div>
+    </div>
+  </div>
+  <div *ngIf="row.id % 2 === 0" class="road"></div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+
+  <form *ngIf="sites[plot]===false" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+        <input nz-input formControlName="email" id="email" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+        <input nz-input formControlName="name" id="name" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        [nzValidateStatus]="validateForm.controls['phoneNumber']"
+        nzErrorTip="Please input your phone number!"
+      >
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+          <ng-template #addOnBeforeTemplate>
+            <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+              <nz-option nzLabel="+91" nzValue="+91"></nz-option>
+              <nz-option nzLabel="+92" nzValue="+92"></nz-option>
+            </nz-select>
+          </ng-template>
+          <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary">Book Site</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <div *ngIf="sites[plot]===true">
+        <b>Owner Name :</b> {{owner.name}} <br><br>
+        <b>Owner email : </b>{{owner.email}}<br><br>
+        <b>Owner phone number : </b>{{owner.phoneNumber}}
+  </div>
+</nz-modal>

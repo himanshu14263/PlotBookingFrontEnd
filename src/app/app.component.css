@@ -1,0 +1,28 @@
+nz-divider {
+    color: #333;
+    fontweight: normal;
+  }
+  .inner-box {
+    
+  }
+
+.road{
+    height: 50px;
+    background: rgb(194, 193, 193);
+}
+
+.siteBooked{
+  display: flex;
+    background: red;
+    padding: 8px 0;
+    border: 1px black solid;
+    justify-content: center;
+}
+
+.siteNotBooked{
+  display: flex;
+    background: #0092ff;
+    padding: 8px 0;
+    border: 1px black solid;
+    justify-content: center;
+}
