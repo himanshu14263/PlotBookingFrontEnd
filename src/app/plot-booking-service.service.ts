@@ -8,7 +8,7 @@ import Customer from 'src/models/Customer';
 })
 export class PlotBookingServiceService {
 
-  baseURL = 'http://localhost:8080/';
+  baseURL = 'https://zeta-plot-booking-backend.herokuapp.com/';
 
   constructor(private http: HttpClient) { }
 
