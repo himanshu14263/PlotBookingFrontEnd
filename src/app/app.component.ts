@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
+    console.log('Button ok clicked!', this.isVisible);
     this.isVisible = false;
   }
 
@@ -102,19 +102,23 @@ export class AppComponent implements OnInit {
       console.log(customer);
       this.plotBookingService.addPerson(customer).subscribe((data) => {
         data = +data;
-        if (data >= 1 && data <= 48) {
-          this.plotBookingService.getPeople().subscribe((data) => {
-            // tslint:disable-next-line: prefer-for-of
-            for (let i  = 0; i < data.length; i++) {
-              this.sites[data[i].id] = true;
-            }
-            this.createNotification('success');
-            this.validateForm.reset();
-            this.handleOk();
-          });
-        } else {
-          this.createNotification('error');
-        }
+        setTimeout(() => {
+          if (data >= 1 && data <= 48) {
+            this.plotBookingService.getPeople().subscribe((data) => {
+              // tslint:disable-next-line: prefer-for-of
+              console.log(' data from database ', data);
+              // tslint:disable-next-line: prefer-for-of
+              for (let i  = 0; i < data.length; i++) {
+                this.sites[data[i].id] = true;
+              }
+              this.createNotification('success');
+              this.validateForm.reset();
+              this.handleOk();
+            });
+          } else {
+            this.createNotification('error');
+          }
+        }, 3000);
       });
     }
   }
