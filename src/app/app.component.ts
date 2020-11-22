@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   isVisible: boolean;
   modalTitle;
   sites: boolean[] = [];
-  owner: Customer;
+  owner: Customer = new Customer();
 
   plot: number;
 
@@ -99,9 +99,12 @@ export class AppComponent implements OnInit {
         customer.email = this.validateForm.get('email').value;
         customer.phoneNumber = this.validateForm.get('phoneNumber').value;
       }
+     
       console.log(customer);
       this.plotBookingService.addPerson(customer).subscribe((data) => {
         data = +data;
+        console.log("mera aya data ",data);
+
         setTimeout(() => {
           if (data >= 1 && data <= 48) {
             this.plotBookingService.getPeople().subscribe((data) => {
@@ -118,8 +121,10 @@ export class AppComponent implements OnInit {
           } else {
             this.createNotification('error');
           }
-        }, 3000);
+        }, 100);
       });
+
+      
     }
   }
 
